@@ -1,0 +1,63 @@
+{% load static %}
+<link rel="shortcut icon" type="image/ico" href="{% static 'media/icon.ico' %}">
+<head>
+    <title>CP Specification</title>
+</head>
+<link rel="shortcut icon" type="image/ico" href="{% static 'media/icon.ico' %}">
+<link rel="stylesheet" href="{% static 'css/order_list.css' %}">
+
+<div class="inline">
+<form method="post" action="{% url 'new_order' %}">
+	{% csrf_token %}
+	<button type="submit" id="new">New order</button>
+</form>
+{% include "./login_base.html" %}
+</div>
+<div class="order-list">
+    {% if order_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order number</th>
+                    <th>Customer</th>
+                    <th>Contacts</th>
+                    <th>City</th>
+                    <th>Total</th>
+                    <th>Currency</th>
+                    <th>Delete order</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'order' order.id %}">{{ order.order_number }}</a>
+                    </td>
+                    <td>
+                        <p>{{ order.client }}</a>
+                    </td>
+                    <td>
+                        <p>{{ order.client_contact }}</p>
+                    </td>
+                    <td>
+                        <p>{{ order.city }}</p>
+                    </td>
+                    
+                    <td>
+                        <span>{{ order.total_ex_vat }}</span>
+                    </td>
+                    <td>{{ order.price_type }}</td>
+                    <td>
+                        <form method="post" action="{% url 'remove_order' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    
+
+</div>

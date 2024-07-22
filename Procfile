@@ -1,0 +1,1 @@
+web: gunicorn doorcalculate.wsgi --log-file -

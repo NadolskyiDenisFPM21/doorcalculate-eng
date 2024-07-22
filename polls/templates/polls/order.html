@@ -1,0 +1,350 @@
+{% load static %}
+<link rel="shortcut icon" type="image/ico" href="{% static 'media/icon.ico' %}">
+<head>
+    <title>CP Specification</title>
+</head>
+
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<div class="container">
+    <form method="get" action="{% url 'index' %}">
+        <button type="submit">To the list of orders</button>
+    </form>
+    {% include "./login_base.html" %}
+
+
+
+<div class="form-pdf" id="form-pdf">
+    <div class="header">
+        <div class="enter-header">
+            <h3>Order form №: <input type="text" value="{{table.order_number}}" class="info-value" id="order-number"></h3>
+            <div class="manager">
+                <div>Manager: {{user.get_full_name}} Number of the manager: {{user.get_username}}</div>
+            </div>
+            <div><b>{{date}}</b></div>
+            <form method="post" action="{% url 'new_order' %}">
+                {% csrf_token %}
+                <button type="submit" id="new">New order</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="content">
+        {% if html %}
+            {{ html|safe }}
+        {% else %}
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th class='cell' rowspan="3">#</th>
+                        <th class='cell' rowspan="3">Model</th>
+                        <th class='cell' rowspan="3">Frame type</th>
+                        <th class='cell td-opening' rowspan="3">Opening</th>
+                        <th class='cell vertical' rowspan="3">Side</th>
+                        <th class='cell' colspan="2" rowspan="2">Door leaf</th>
+                        <th class='cell' colspan="2" rowspan="2">Frame</th>
+                        <th class='cell' colspan="2" rowspan="2">Doorway</th>
+                        <th class='cell' rowspan="3">Finishing of the door leaf</th>
+                        <th class='cell' rowspan="3">Al strapping</th>
+                        <th class='cell' rowspan="3">Profile painting</br> colour</th>
+                        <th class='cell' rowspan="3">Colour of the seal</th>
+                        <th class='cell' colspan="3" rowspan="1">Cutting</th>
+                        <th class='cell' rowspan="3">Hardware colour</th>
+                        <th class='cell vertical' rowspan="3">q-ty</th>
+                        <th class='cell' rowspan="2">Price</th>
+                        <th class='cell' rowspan="2">Total</th>
+                    </tr>
+                    <tr>
+                        <th class='cell' colspan="2">Holes</th>
+                        <th class='cell' rowspan="2">Hinges</th>
+                    </tr>
+                    <tr>
+                        <th class='cell' rowspan="1">Width mm </br>front\rare</th>
+                        <th class='cell'>Width mm </br>front\rare</th>
+                        <th class='cell'>Width mm</th>
+                        <th class='cell'>Height mm</th>
+                        <th class='cell'>Width mm</th>
+                        <th class='cell'>Height mm</th>
+                        <th class='cell'>Handle</th>
+                        <th class='cell'>WC/PZ</th>
+                        <th class='cell'>USD</th>
+                        <th class='cell'>USD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        {% endif %}
+
+        <div class="info">
+            <div class="price">
+                <div class="info_price">
+                    <span class="bold">Total for door units: </span>
+                    <span id="full-price-value" class="info-value"></span>
+
+                </div>
+                <div class="info_price inline-div">
+                    <span>Discount %: </span>
+                    <input placeholder="0-100" type="number" id="discount-value" class="info-value" name="" min="0" max="100" value="{{table.sale}}">
+                </div>
+                <div class="info_price">
+                    <span class="bold">Total, including discounts: </span>
+                    <span id="full-price-discount-value" class="info-value"></span>
+
+                </div>
+                <div class="info_price inline-div">
+                    <span>Delivery to the warehouse (object) without unloading and bringing to the floor: </span>
+                    <input placeholder="" type="number" id="delivery-value" class="info-value" name="" min="0" max="999999999" value="{{table.delivery}}">
+
+                </div>
+                <div class="info_price inline-div">
+                    <span>Installation per 1 unit: </span>
+                    <input placeholder="" type="number" id="instal-value" class="info-value" name="" min="0" max="99999999" value="{{table.install}}">
+
+                </div>
+                <div class="info_price inline-div">
+                    <span>Measurements: </span>
+                    <input placeholder="" type="number" id="zamery-value" class="info-value" name="" min="0" max="99999999" value="{{table.measurements}}">
+
+                </div>
+                <div class="info_price inline-div">
+                    <span class="bold">Total for services:</span>
+                    <span id="poslugy"></span>
+                </div>
+                <div class="info_price">
+                    <span>Total order amount: </span>
+                    <span id="total-ex-vat-value" class="info-value"></span>
+
+                </div>
+                <div class="info_price inline-div">
+                    <span class="bold">Prepayment: </span>
+                    <input placeholder="0-100" type="number" id="prepayment-value" class="info-value" name="" min="0" max="100" value="{{table.prepayment}}">
+
+                </div>
+                <div class="info_price inline-div">
+                    <span class="bold">Prepayment: </span>
+                    <span id="prepayment-percent"></span>
+                </div>
+                <div class="info_price">
+                    <span class="bold">Balance: </span>
+                    <span id="remainder-value" class="info-value"></span>
+
+                </div>
+            </div>
+            <div class="client-info">
+                <div>City: <input id="city" value="{{table.city}}" class="info-value inp-15"></div>
+                <div>Customer: <input id="client" value="{{table.client}}" class="info-value inp-15"></div>
+                <div>Contacts: <input id="client-contact" value="{{table.client_contact}}" class="info-value inp-15"></div>
+                <div>Order delivery: <input id="delivery-info" value="{{table.delivery_info}}" class="info-value inp-15"></div>
+                <div>E-mail address: <input type='email' id="client-email" value="{{table.client_email}}" class="info-value inp-15"></div>
+            </div>
+            <div>
+                <span>Handle height: 1000 mm from the bottom of the door leaf.</br>
+                    Space between floor and door leaf: 8 mm.</br>
+                    Space between floor and door leaf.</br>
+                    <span><b>Production time:</b>  1-4 weeks from the date of approval and prepayment.</span>
+                </span>
+                </br>
+                <label for="note">Note:</label></br>
+                <textarea resize="none" name="note" id="note" rows="8" cols="70" class="info-value" value="{{table.note}}"></textarea><br>
+                {% if not table.is_set_price_type %}
+                    <form id="price-type-form" method="post" action="{% url "set_price_type" order_id %}">
+                        {% csrf_token %}
+                        <label for='price_type' class='bold'>Select currency:</label>
+                        <select name="price_type" class="select_price_type">
+                            <option value='USD'>USD</option>
+                            <option value='EURO'>EURO</option>
+                        </select>
+                        <button type="submit" id="price-type">Select</button>
+                    </form>
+
+                {% else %}
+                    <div>
+                        <p>Currency: {{ table.price_type }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% if door_block_list %}
+<table id="form-table">
+    <thead>
+        <tr>
+            <th class='cell' rowspan="3">Model</th>
+            <th class='cell' rowspan="3">Frame type</th>
+            <th class='cell td-opening' rowspan="3">Opening</th>
+            <th class='cell vertical' rowspan="3">Side</th>
+            <th class='cell' colspan="2" rowspan="2">Door leaf</th>
+            <th class='cell' colspan="2" rowspan="2">Frame</th>
+            <th class='cell' colspan="2" rowspan="2">Doorway</th>
+            <th class='cell' rowspan="3">Finishing of the door leaf</th>
+            <th class='cell' rowspan="3">Aluminium strapping</th>
+            <th class='cell' rowspan="3">Profile painting colour</th>
+            <th class='cell' rowspan="3">Colour of the seal</th>
+            <th class='cell' colspan="3" rowspan="1">Cutting</th>
+            <th class='cell' rowspan="3">Hardware colour</th>
+            <th class='cell vertical' rowspan="3">q-ty</th>
+            <th class='cell' rowspan="2">Price</th>
+            <th class='cell' rowspan="2">Total</th>
+        </tr>
+        <tr>
+            <th class='cell' colspan="2">Holes</th>
+            <th class='cell' rowspan="2">Hinges</th>
+        </tr>
+        <tr>
+            <th class='cell' rowspan="1">Width mm </br>front\rare</th>
+            <th class='cell'>Height mm </br>front\rare</th>
+            <th class='cell'>Width mm</th>
+            <th class='cell'>Height mm</th>
+            <th class='cell'>Width mm</th>
+            <th class='cell'>Height mm</th>
+            <th class='cell'>Handle</th>
+            <th class='cell'>WC/PZ</th>
+            <th class='cell'>{{ table.price_type }}</th>
+            <th class='cell'>{{ table.price_type }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class='cell' rowspan="2">
+                <select name="model" id="select-model" class='model get_filtered_data'>
+                    <option value="" disabled selected>Model</option>
+                    {% for door in door_block_list %}
+                    {% ifchanged door.model %}
+                    <option value="{{ door.model }}">{{ door.model }}</option>
+                    {% endifchanged %}
+                    {% endfor %}
+                </select>
+            </td>
+            <td class='cell' rowspan="2">
+                <select name="frame" id="select-frame" class='frame get-data get_filtered_data'>
+                    <option value="" disabled selected>Frame type</option>
+                </select>
+            </td>
+            <td class='cell td-opening'>
+                <select name="opening" id="select-opening" class='opening'>
+                    <option value="" disabled selected>Opening</option>
+                    <option value="Left">Left</option>
+                    <option value="Right">Right</option>
+                </select>
+            </td>
+            <td class='cell'>
+                <span>Front</span>
+            </td>
+            <td class='cell'>
+                <select name="width" id="select-width" class='width get-data get_filtered_data'>
+                    <option value="" disabled selected>Width mm</option>
+                </select>
+            </td>
+            <td class='cell'>
+                <select name="height" id="select-height" class='height get-data'>
+                    <option value="" disabled selected>Height mm</option>
+                </select>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="aperture-width"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="aperture-height"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="frame-width"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="frame-height"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="is-primed"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="al-band-canvas"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="profile-frame-color"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="seal-color"></span>
+            </td>
+            <td class='cell' rowspan="2">
+                <select name="pen" id="is-pen-face" class='is-pen'>
+                    <option value="+" selected>+</option>
+                    <option value="-">-</option>
+                </select>
+            </td>
+            <td class='cell' rowspan="2">
+                <select name="pen" id="is-wc-face" class='is-pen'>
+                    <option value="WC" selected>WC</option>
+                    <option value="PZ">PZ</option>
+                    <option value="-">-</option>
+                </select>
+            </td>
+            <td class='cell' rowspan="2">
+                <span id="loop">2</span>
+            </td>
+            <td class="cell" rowspan="2">
+                <span id="furn-color"></span>
+            </td>
+            <td class='cell count' rowspan="2">
+                <input placeholder="q-ty" type="number" name="" id="count" min="1" max="99">
+            </td>
+            <td class='cell' rowspan="2">
+                <span class="price" id='price'></span>
+            </td>
+            <td class='cell total-price' rowspan="2">
+                <span class="total-price" id='total-price'></span>
+            </td>
+        </tr>
+        <tr>
+            <td class='cell'>
+                <select name="opening-2" id="select-opening-2" class='opening'>
+                    <option value="" disabled selected>Opening</option>
+
+                </select>
+            </td>
+            <td class='cell'>
+                <span>Rear</span>
+            </td>
+            <td class='cell'>
+                <span id="back-width"></span>
+            </td>
+            <td class='cell'>
+                <span id="back-height"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+</div>
+<div><p></p></div>
+{% if table.is_set_price_type %}
+<button type="button" id="add">Add door</button>
+{% endif %}
+</br>
+</br>
+<form method="post" action="{% url 'create_excel_specification' table.id %}">
+    {% csrf_token %}
+    <button type="submit">Download Excel</button>
+</form>
+
+<form method="get" action={% url 'create_pdf_specification' table.id %}>
+    <button type="submit" id="gen-pdf">Download PDF</button>
+</form>
+
+<div class="opening-photo">
+    <img src="{% static "media/opening-2.png" %}" class="opening-img2">
+</div>
+
+<div id="order_id" hidden>{{table.id}}</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/index.js' %}" type="module"></script>
+<script src="{% static 'js/get_data.js' %}" type="module"></script>
+<script src="{% static 'js/get_total_price.js' %}" type="module"></script>
+<script src="{% static 'js/cookies.js' %}" type="module"></script>
+<script src="{% static 'js/select_model.js' %}" type="module"></script>
+<script src="{% static 'js/gen_pdf.js' %}" type="module"></script>

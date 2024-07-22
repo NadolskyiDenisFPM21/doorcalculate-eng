@@ -1,0 +1,115 @@
+{% load static %}
+
+<style>
+	@font-face {
+		font-family: Roboto;
+		{% comment %}
+			src: url({% static "Roboto-Light.ttf" %});
+		{% endcomment %}
+	}
+
+	@page {
+		size: A4 landscape;
+		margin: 0.5cm;
+	}
+
+	* {
+		{% comment %}
+			font-family: 'Roboto', sans-serif;
+		{% endcomment %}
+		font-size: 8px;
+	}
+
+	h3 {
+		font-size: 14px;
+	}
+
+	td,
+	th {
+		/* height: 20px; */
+		text-align: center;
+		padding-top: 0.3em;
+	}
+
+	th {
+		padding-top: 0.3em;
+		padding: 0;
+	}
+
+	tr {
+		border: 1px solid #121212;
+	}
+
+	img {
+		width: 7cm;
+	}
+
+	span img {
+		width: 17cm;
+		transform: translate(10cm, -7cm);
+	}
+</style>
+
+
+<h3>Order form #
+	{{ table.order_number }}</h3>
+<div>Manager:
+	{{user.get_full_name}}
+	Number of the manager:
+	{{user.get_username}}</div>
+
+{% if html %}
+	{{html|safe}}
+{% endif %}
+</br></br></br>
+<style>
+	div {
+		width: 100%;
+		text-align: left;
+		padding: 10px;
+	}
+	div span {
+		font-size: 12px;
+	}
+</style>
+<table id="info-content">
+	<tr>
+		<td>
+			<div class='info'>
+				<span>Total for door units:{{table.total}}</span></br>
+				<span>Discount:{{table.sale}}%</span></br>
+				<span>Total, including discounts:{{table.total_with_sale}}</span></br>
+				<span>Delivery to the warehouse (object) without unloading and bringing to the floor:{{table.delivery}}</span></br>
+				<span>Installation per 1 unit:{{table.install}}</span></br>
+				<span>Measurements:{{table.measurements}}</span></br>
+				<span>Total for services:{{table.poslugy}}</span></br>
+				<span>Total order amount:{{table.total_ex_vat}}</span></br>
+				<span>Prepayment:{{table.prepayment}}%</span> </br> 
+				<span>Prepayment:{{prepayment_value}}</span></br>
+				<span>Balance: {{table.remainder}}</span></br>
+			</div>
+		</td>
+		<td>
+			<div class="info">
+				<span>City:{{table.city}}</span></br>	
+				<span>Customer:{{table.client}}</span></br>
+				<span>Order delivery:{{table.delivery_info}}</span></br>
+				<span>Contacts:{{table.client_contact}}</span></br>
+				<span>E-mail address:{{table.client_email}}</span>
+			</div>
+		</td>
+		<td>
+			<div>
+				<span>Handle height: 1000 mm from the bottom of the door leaf.</br>Space between floor and door leaf: 8 mm.</br>Without the cost of handles.</span></br>
+				<span>Production time: 1-4 weeks from the date of approval and prepayment.</span></br>
+				<span>Note:</br>{{table.note}}</span>
+			</div>
+		</td>
+	</tr>
+</table>
+<img src="./polls/static/opening.jpg" class="opening-img">
+<span><img src="./polls/static/opening-2.jpg" class="opening-img"></span>
+<div>
+	<h3>Customer___________________</h3>
+	<h3>Manager___________________</h3>
+</div>

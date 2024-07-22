@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+
+}
+
+button,
+a {
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 20px;
+    font-size: 16px;
+    line-height: 1.25;
+    border-radius: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #007dc6;
+    transition: background-color .3s ease-out 100ms;
+    margin: 0 1em 0 0;
+}
+
+button:hover,
+a:hover {
+    background-color: #085f92;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#form-pdf,
+#form-table {
+    box-sizing: border-box;
+    width: 100%;
+    /* padding: 1em; */
+}
+
+#form-table {
+    background-color: #e0e0e0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+table,
+th,
+td {
+    border: 1px solid #999;
+    font-size: .8em;
+    height: 1em;
+    text-align: center;
+    /* Уменьшен размер текста в таблицах */
+}
+
+input,
+select {
+    width: 9em;
+    padding: .5em;
+    margin: .3em 0 .3em 1em;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+/* Обновленные стили для блока info */
+.info {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+}
+
+.info>div {
+    flex: 1 1 50%;
+    /* Каждый блок в две колонки */
+    box-sizing: border-box;
+    padding: 0 1em;
+    /* Добавлено небольшое поле по бокам для отступа */
+    font-size: .8em;
+    /* Уменьшен размер текста в блоке info */
+}
+
+.client-info {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+
+.inp-15 {
+    width: 15vw;
+}
+
+
+/* Уменьшение текста и inputs в 1.5 раза в блоке info */
+.form-pdf input,
+.form-pdf select {
+    font-size: .8em;
+    /* Уменьшено в 1.5 раза */
+}
+
+
+.manager input,
+.manager select {
+    width: 20%;
+    height: 1em;
+}
+
+.info_price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.info_value {
+    flex: 1;
+}
+
+
+.opening-img {
+    width: 25%;
+}
+
+
+.opening-img2 {
+    width: 70%;
+}
+
+#select-model {
+    width: 8vw;
+}
+
+.remove-button {
+    cursor: pointer;
+    font-size: 2em;
+}
+
+textarea {
+    resize: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logos {
+
+    img {
+        height: 5em;
+    }
+}
+
+
+.cm-a {
+    all: unset;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+
+}
+
+.cm-a:hover {
+    background-color: #e0e0e0;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.contacts {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: first baseline;
+
+    * {
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+}
+
+.select_price_type {
+    width: 15em;
+}

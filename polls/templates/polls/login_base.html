@@ -1,0 +1,25 @@
+{% load static %}
+
+<form method="post" action="{% url 'logout' %}">
+	{% csrf_token %}
+	<button type="submit">Logout</button>
+</form>
+
+<p>Property of Comeo Porte™</p>
+
+<div class="contacts">
+	<span>Official site:
+		<a href="https://comeoporte.ua/" class="cm-a bold">Comeo Porte</a>
+	</span>
+	<p>To call:
+		<span class="bold">+38 (067) 880 58 73</span>
+	</p>
+	<p>E-mail:
+		<span class="bold">uasales@comeoporte.ua</span>
+	</p>
+</div>
+<div class="logos">
+	<img src="{% static "/media/Comeo Porte.png" %}">
+	<img src="{% static "/media/Architec Line.png" %}">
+
+</div>
